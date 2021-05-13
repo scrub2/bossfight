@@ -1,7 +1,11 @@
 namespace SpriteKind {
     export const Object = SpriteKind.create()
     export const gun = SpriteKind.create()
+    export const bad = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile19`, function (sprite, location) {
+    tiles.setTilemap(tilemap`level19`)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, location) {
     tiles.setTilemap(tilemap`level1`)
     spr_mc.setPosition(130, 95)
@@ -9,7 +13,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, l
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     console.log(spr_mc.x)
     console.log(spr_mc.y)
-    level2_right()
+    level_3()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.gun, function (sprite, otherSprite) {
     gun.destroy()
@@ -32,6 +36,129 @@ function level1 () {
 }
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile15`, function (sprite, location) {
     button4 = 1
+})
+function level_3 () {
+    tiles.setTilemap(tilemap`level17`)
+    box5 = sprites.create(img`
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        `, SpriteKind.Enemy)
+    spr_mc.setPosition(228, 27)
+    box5.setPosition(190, 60)
+    box5.fx = 1000
+    box5.fy = 1000
+    badboi = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 2 2 2 2 2 2 . . . . . 
+        . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+        . . . . 1 2 2 2 2 2 2 1 . . . . 
+        . . . . . 2 . . . . 2 . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.bad)
+    badboi.setPosition(123, 107)
+    animation.runImageAnimation(
+    badboi,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 2 2 2 . . . . . . . . 
+        . . . 1 1 2 f 2 2 2 2 . . . . . 
+        . . . . 1 2 2 2 2 f 2 1 1 . . . 
+        . . . . . 2 . . 2 2 2 1 . . . . 
+        . . . . . . . . . . 2 . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 2 2 2 2 2 2 . . . . . 
+        . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+        . . . . 1 2 2 2 2 2 2 1 . . . . 
+        . . . . . 2 . . . . 2 . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 2 2 2 . . . . . 
+        . . . . . 2 2 2 2 f 2 1 1 . . . 
+        . . . 1 1 2 f 2 2 2 2 1 . . . . 
+        . . . . 1 2 2 2 . . 2 . . . . . 
+        . . . . . 2 . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 2 2 2 2 2 2 . . . . . 
+        . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+        . . . . 1 2 2 2 2 2 2 1 . . . . 
+        . . . . . 2 . . . . 2 . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `],
+    500,
+    true
+    )
+    badpath = 1
+    level = 3
+}
+scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile17`, function (sprite, location) {
+    tiles.setTilemap(tilemap`level18`)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (gun2 > 0) {
@@ -90,11 +217,18 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 }
             }
             bullet.setVelocity(bullet.vx + spr_mc.vx, bullet.vy + spr_mc.vy)
+            bullet.setKind(SpriteKind.Food)
         }
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, location) {
-    level2_right()
+    if (level2complete == 0) {
+        level2_right()
+    }
+    if (level2complete == 1) {
+        tiles.setTilemap(tilemap`level9`)
+        spr_mc.setPosition(9, 79)
+    }
 })
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile11`, function (sprite, location) {
     button1 = 1
@@ -122,9 +256,28 @@ function fn_vars () {
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, location) {
     tiles.setTilemap(tilemap`level11`)
+    spr_mc.setPosition(125, 52)
+    box.destroy()
+    box2.destroy()
+    box3.destroy()
+    box4.destroy()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.bad, function (sprite, otherSprite) {
+    spr_mc.destroy()
+    game.over(false)
 })
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile14`, function (sprite, location) {
     button3 = 1
+})
+sprites.onOverlap(SpriteKind.bad, SpriteKind.Food, function (sprite, otherSprite) {
+    badboi.startEffect(effects.fountain)
+    badboi.destroy()
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, location) {
+    level_3()
+})
+scene.onHitWall(SpriteKind.Food, function (sprite, location) {
+    sprite.destroy()
 })
 function level2_right () {
     tiles.setTilemap(tilemap`level8`)
@@ -196,7 +349,7 @@ function level2_right () {
     box3.setPosition(59, 29)
     box3.fx = 1000
     box3.fy = 1000
-    box3 = sprites.create(img`
+    box4 = sprites.create(img`
         e e e e e e e e e e e e e e e e 
         e e e e e e e e e e e e e e e e 
         e e e e e e e e e e e e e e e e 
@@ -214,10 +367,10 @@ function level2_right () {
         e e e e e e e e e e e e e e e e 
         e e e e e e e e e e e e e e e e 
         `, SpriteKind.Enemy)
-    box3.setFlag(SpriteFlag.GhostThroughSprites, false)
-    box3.setPosition(42, 33)
-    box3.fx = 1000
-    box3.fy = 1000
+    box4.setFlag(SpriteFlag.GhostThroughSprites, false)
+    box4.setPosition(42, 33)
+    box4.fx = 1000
+    box4.fy = 1000
     gun = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -244,17 +397,121 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Object, function (sprite, otherS
         otherSprite.destroy()
     }
 })
+sprites.onDestroyed(SpriteKind.bad, function (sprite) {
+    if (level == 3) {
+        badboi = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . 2 2 2 2 2 2 . . . . . 
+            . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+            . . . . 1 2 2 2 2 2 2 1 . . . . 
+            . . . . . 2 . . . . 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.bad)
+        animation.runImageAnimation(
+        badboi,
+        [img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . 2 2 2 . . . . . . . . 
+            . . . 1 1 2 f 2 2 2 2 . . . . . 
+            . . . . 1 2 2 2 2 f 2 1 1 . . . 
+            . . . . . 2 . . 2 2 2 1 . . . . 
+            . . . . . . . . . . 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . 2 2 2 2 2 2 . . . . . 
+            . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+            . . . . 1 2 2 2 2 2 2 1 . . . . 
+            . . . . . 2 . . . . 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 2 2 2 . . . . . 
+            . . . . . 2 2 2 2 f 2 1 1 . . . 
+            . . . 1 1 2 f 2 2 2 2 1 . . . . 
+            . . . . 1 2 2 2 . . 2 . . . . . 
+            . . . . . 2 . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . 2 2 2 2 2 2 . . . . . 
+            . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+            . . . . 1 2 2 2 2 2 2 1 . . . . 
+            . . . . . 2 . . . . 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `],
+        500,
+        true
+        )
+        tiles.placeOnRandomTile(badboi, assets.tile`myTile`)
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.vx += spr_mc.vx
     otherSprite.vy += spr_mc.vy
 })
+let bad_tile: tiles.Location = null
+let mc_tile: tiles.Location = null
+let button3 = 0
+let box4: Sprite = null
 let box3: Sprite = null
 let box2: Sprite = null
 let box: Sprite = null
-let button3 = 0
 let button2 = 0
 let button1 = 0
+let level2complete = 0
 let bullet: Sprite = null
+let badpath = 0
+let badboi: Sprite = null
+let box5: Sprite = null
 let button4 = 0
 let level = 0
 let obj_key: Sprite = null
@@ -273,12 +530,20 @@ spr_mc = sprites.create(img`
 scene.cameraFollowSprite(spr_mc)
 controller.moveSprite(spr_mc)
 level1()
+game.onUpdateInterval(1000, function () {
+    if (badpath == 1) {
+        mc_tile = tiles.locationOfSprite(spr_mc)
+        bad_tile = tiles.locationOfSprite(badboi)
+        scene.followPath(badboi, scene.aStar(tiles.getTileLocation(tiles.locationXY(bad_tile, tiles.XY.column), tiles.locationXY(bad_tile, tiles.XY.row)), tiles.getTileLocation(tiles.locationXY(mc_tile, tiles.XY.column), tiles.locationXY(mc_tile, tiles.XY.row))), 75)
+    }
+})
 game.onUpdateInterval(500, function () {
     if (button1 == 1) {
         if (button2 == 1) {
             if (button3 == 1) {
                 if (button4 == 1) {
                     tiles.setTilemap(tilemap`level9`)
+                    level2complete = 1
                 }
             }
         }
