@@ -5,6 +5,8 @@ namespace SpriteKind {
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile19`, function (sprite, location) {
     tiles.setTilemap(tilemap`level19`)
+    spr_mc.setPosition(38, 55)
+    badboi.destroy()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, location) {
     tiles.setTilemap(tilemap`level1`)
@@ -13,7 +15,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, l
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     console.log(spr_mc.x)
     console.log(spr_mc.y)
-    level_3()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.gun, function (sprite, otherSprite) {
     gun.destroy()
@@ -57,10 +58,6 @@ function level_3 () {
         e e e e e e e e e e e e e e e e 
         e e e e e e e e e e e e e e e e 
         `, SpriteKind.Enemy)
-    spr_mc.setPosition(228, 27)
-    box5.setPosition(190, 60)
-    box5.fx = 1000
-    box5.fy = 1000
     badboi = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -79,7 +76,6 @@ function level_3 () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.bad)
-    badboi.setPosition(123, 107)
     animation.runImageAnimation(
     badboi,
     [img`
@@ -156,9 +152,15 @@ function level_3 () {
     )
     badpath = 1
     level = 3
+    spr_mc.setPosition(228, 27)
+    box5.setPosition(190, 60)
+    box5.fx = 1000
+    box5.fy = 1000
+    badboi.setPosition(123, 107)
 }
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile17`, function (sprite, location) {
     tiles.setTilemap(tilemap`level18`)
+    level3complete3 = 1
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (gun2 > 0) {
@@ -227,7 +229,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, l
     }
     if (level2complete == 1) {
         tiles.setTilemap(tilemap`level9`)
-        spr_mc.setPosition(9, 79)
+        spr_mc.setPosition(51, 102)
     }
 })
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile11`, function (sprite, location) {
@@ -255,6 +257,7 @@ function fn_vars () {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, location) {
+    level = 6
     tiles.setTilemap(tilemap`level11`)
     spr_mc.setPosition(125, 52)
     box.destroy()
@@ -266,6 +269,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.bad, function (sprite, otherSpri
     spr_mc.destroy()
     game.over(false)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile20`, function (sprite, location) {
+    bossfight()
+})
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile14`, function (sprite, location) {
     button3 = 1
 })
@@ -274,12 +280,18 @@ sprites.onOverlap(SpriteKind.bad, SpriteKind.Food, function (sprite, otherSprite
     badboi.destroy()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, location) {
-    level_3()
+    if (level3complete3 == 1) {
+        tiles.setTilemap(tilemap`level18`)
+        spr_mc.setPosition(228, 27)
+    } else {
+        level_3()
+    }
 })
 scene.onHitWall(SpriteKind.Food, function (sprite, location) {
     sprite.destroy()
 })
 function level2_right () {
+    level = 2
     tiles.setTilemap(tilemap`level8`)
     spr_mc.setPosition(23, 120)
     box = sprites.create(img`
@@ -391,6 +403,31 @@ function level2_right () {
         `, SpriteKind.gun)
     gun.setPosition(130, 125)
 }
+function bossfight () {
+    tiles.setTilemap(tilemap`level22`)
+    spr_mc.setPosition(44, 98)
+    box5 = sprites.create(img`
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        e e e e e e e e e e e e e e e e 
+        `, SpriteKind.Enemy)
+    box5.fy = 1000
+    box5.fx = 1000
+    box5.setPosition(40, 42)
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Object, function (sprite, otherSprite) {
     if (level == 1) {
         tiles.setTilemap(tilemap`level1`)
@@ -398,100 +435,102 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Object, function (sprite, otherS
     }
 })
 sprites.onDestroyed(SpriteKind.bad, function (sprite) {
-    if (level == 3) {
-        badboi = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . 2 2 2 2 2 2 . . . . . 
-            . . . 1 1 2 f 2 2 f 2 1 1 . . . 
-            . . . . 1 2 2 2 2 2 2 1 . . . . 
-            . . . . . 2 . . . . 2 . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.bad)
-        animation.runImageAnimation(
-        badboi,
-        [img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . 2 2 2 . . . . . . . . 
-            . . . 1 1 2 f 2 2 2 2 . . . . . 
-            . . . . 1 2 2 2 2 f 2 1 1 . . . 
-            . . . . . 2 . . 2 2 2 1 . . . . 
-            . . . . . . . . . . 2 . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . 2 2 2 2 2 2 . . . . . 
-            . . . 1 1 2 f 2 2 f 2 1 1 . . . 
-            . . . . 1 2 2 2 2 2 2 1 . . . . 
-            . . . . . 2 . . . . 2 . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 2 2 2 . . . . . 
-            . . . . . 2 2 2 2 f 2 1 1 . . . 
-            . . . 1 1 2 f 2 2 2 2 1 . . . . 
-            . . . . 1 2 2 2 . . 2 . . . . . 
-            . . . . . 2 . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `,img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . 2 2 2 2 2 2 . . . . . 
-            . . . 1 1 2 f 2 2 f 2 1 1 . . . 
-            . . . . 1 2 2 2 2 2 2 1 . . . . 
-            . . . . . 2 . . . . 2 . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `],
-        500,
-        true
-        )
-        tiles.placeOnRandomTile(badboi, assets.tile`myTile`)
+    if (level3complete3 == 0) {
+        if (level == 3) {
+            badboi = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . 2 2 2 2 2 2 . . . . . 
+                . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+                . . . . 1 2 2 2 2 2 2 1 . . . . 
+                . . . . . 2 . . . . 2 . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.bad)
+            animation.runImageAnimation(
+            badboi,
+            [img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . 2 2 2 . . . . . . . . 
+                . . . 1 1 2 f 2 2 2 2 . . . . . 
+                . . . . 1 2 2 2 2 f 2 1 1 . . . 
+                . . . . . 2 . . 2 2 2 1 . . . . 
+                . . . . . . . . . . 2 . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . 2 2 2 2 2 2 . . . . . 
+                . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+                . . . . 1 2 2 2 2 2 2 1 . . . . 
+                . . . . . 2 . . . . 2 . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . 2 2 2 . . . . . 
+                . . . . . 2 2 2 2 f 2 1 1 . . . 
+                . . . 1 1 2 f 2 2 2 2 1 . . . . 
+                . . . . 1 2 2 2 . . 2 . . . . . 
+                . . . . . 2 . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . 2 2 2 2 2 2 . . . . . 
+                . . . 1 1 2 f 2 2 f 2 1 1 . . . 
+                . . . . 1 2 2 2 2 2 2 1 . . . . 
+                . . . . . 2 . . . . 2 . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `],
+            500,
+            true
+            )
+            tiles.placeOnRandomTile(badboi, assets.tile`myTile`)
+        }
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
@@ -509,14 +548,15 @@ let button2 = 0
 let button1 = 0
 let level2complete = 0
 let bullet: Sprite = null
+let level3complete3 = 0
 let badpath = 0
-let badboi: Sprite = null
 let box5: Sprite = null
 let button4 = 0
 let level = 0
 let obj_key: Sprite = null
 let gun2 = 0
 let gun: Sprite = null
+let badboi: Sprite = null
 let spr_mc: Sprite = null
 spr_mc = sprites.create(img`
     . . . . . . . . . 
@@ -538,20 +578,22 @@ game.onUpdateInterval(1000, function () {
     }
 })
 game.onUpdateInterval(500, function () {
-    if (button1 == 1) {
-        if (button2 == 1) {
-            if (button3 == 1) {
-                if (button4 == 1) {
-                    tiles.setTilemap(tilemap`level9`)
-                    level2complete = 1
+    if (level == 2) {
+        if (button1 == 1) {
+            if (button2 == 1) {
+                if (button3 == 1) {
+                    if (button4 == 1) {
+                        tiles.setTilemap(tilemap`level9`)
+                        level2complete = 1
+                    }
                 }
             }
         }
+        button1 = 0
+        button2 = 0
+        button3 = 0
+        button4 = 0
     }
-    button1 = 0
-    button2 = 0
-    button3 = 0
-    button4 = 0
 })
 game.onUpdateInterval(300, function () {
     if (fn_vars()) {
