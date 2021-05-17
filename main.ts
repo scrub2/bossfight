@@ -2,6 +2,7 @@ namespace SpriteKind {
     export const Object = SpriteKind.create()
     export const gun = SpriteKind.create()
     export const bad = SpriteKind.create()
+    export const boss = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile19`, function (sprite, location) {
     tiles.setTilemap(tilemap`level19`)
@@ -15,6 +16,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, l
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     console.log(spr_mc.x)
     console.log(spr_mc.y)
+    bossfight()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.gun, function (sprite, otherSprite) {
     gun.destroy()
@@ -232,6 +234,37 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, l
         spr_mc.setPosition(51, 102)
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile33`, function (sprite, location) {
+    if (gogogo == 0) {
+        bossman = sprites.create(img`
+            ....................
+            ....................
+            .222222222222222222.
+            .22fff222222fff2222.
+            .22222f2222f2222222.
+            .222222222222222222.
+            .222ff2222222ff2222.
+            .222ff2222222ff2222.
+            .222262222222622222.
+            .222222222222222222.
+            .22222fffffffffff22.
+            .22222f111111111f22.
+            .22222f111111111f22.
+            .22222f111111111f22.
+            .22222f111111111f22.
+            .22222f111111111f22.
+            .22222fffffffffff22.
+            .222222222222222222.
+            ....................
+            ....................
+            `, SpriteKind.boss)
+        scene.cameraShake(5, 1000)
+        bossman.say("WHAT DID YOU DO", 1000)
+        gogogo = 1
+        bossman.setPosition(35, 125)
+        gogogo = 1
+    }
+})
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile11`, function (sprite, location) {
     button1 = 1
 })
@@ -266,6 +299,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, 
     box4.destroy()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.bad, function (sprite, otherSprite) {
+    if (gogogo == 1) {
+        game.splash("THERE", "IS")
+        game.splash("NO", "ESCAPE")
+    }
     spr_mc.destroy()
     game.over(false)
 })
@@ -276,8 +313,8 @@ scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile14`, function (sprite, l
     button3 = 1
 })
 sprites.onOverlap(SpriteKind.bad, SpriteKind.Food, function (sprite, otherSprite) {
-    badboi.startEffect(effects.fountain)
-    badboi.destroy()
+    sprite.startEffect(effects.fountain)
+    sprite.destroy()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, location) {
     if (level3complete3 == 1) {
@@ -406,27 +443,6 @@ function level2_right () {
 function bossfight () {
     tiles.setTilemap(tilemap`level22`)
     spr_mc.setPosition(44, 98)
-    box5 = sprites.create(img`
-        e e e e e e e e e e e e e e e e 
-        e e e e e e e e e e e e e e e e 
-        e e e e e e e e e e e e e e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e 4 4 4 4 4 4 4 4 4 4 e e e 
-        e e e e e e e e e e e e e e e e 
-        e e e e e e e e e e e e e e e e 
-        e e e e e e e e e e e e e e e e 
-        `, SpriteKind.Enemy)
-    box5.fy = 1000
-    box5.fx = 1000
-    box5.setPosition(40, 42)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Object, function (sprite, otherSprite) {
     if (level == 1) {
@@ -537,6 +553,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     otherSprite.vx += spr_mc.vx
     otherSprite.vy += spr_mc.vy
 })
+let swarm: Sprite = null
 let bad_tile: tiles.Location = null
 let mc_tile: tiles.Location = null
 let button3 = 0
@@ -546,6 +563,8 @@ let box2: Sprite = null
 let box: Sprite = null
 let button2 = 0
 let button1 = 0
+let bossman: Sprite = null
+let gogogo = 0
 let level2complete = 0
 let bullet: Sprite = null
 let level3complete3 = 0
@@ -575,6 +594,30 @@ game.onUpdateInterval(1000, function () {
         mc_tile = tiles.locationOfSprite(spr_mc)
         bad_tile = tiles.locationOfSprite(badboi)
         scene.followPath(badboi, scene.aStar(tiles.getTileLocation(tiles.locationXY(bad_tile, tiles.XY.column), tiles.locationXY(bad_tile, tiles.XY.row)), tiles.getTileLocation(tiles.locationXY(mc_tile, tiles.XY.column), tiles.locationXY(mc_tile, tiles.XY.row))), 75)
+    }
+})
+game.onUpdateInterval(1000, function () {
+    if (gogogo == 1) {
+        swarm = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . 2 2 2 2 2 2 . . . . . 
+            . . . . . 2 f 2 2 f 2 . . . . . 
+            . . . . . 2 6 2 2 2 2 . . . . . 
+            . . . . . 2 2 2 2 6 2 . . . . . 
+            . . . . . 2 2 2 2 2 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.bad)
+        swarm.follow(spr_mc, 80)
+        swarm.setPosition(35, 125)
     }
 })
 game.onUpdateInterval(500, function () {
